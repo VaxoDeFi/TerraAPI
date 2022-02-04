@@ -1,10 +1,9 @@
-# API Server - CoinMarketCap
+# Terra API
 
-Useful API Server to retrieve data crypto market from CoinMarketCap.
+Useful API Server to retrieve data from DEX market on Terra blockchain
 
 ### Instructions
 
-You must have a CoinMarketCap key to be able to retreive data from the website. Create account developer free account.
 Duplicate and rename the file .env-example as .env and add your key in **CMC_KEY**.
 
 #### Server start
