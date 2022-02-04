@@ -1,4 +1,4 @@
-const { getDatabase } = require("./mongo");
+import { getDatabase } from "./mongo";
 
 const collectionName = "coins";
 

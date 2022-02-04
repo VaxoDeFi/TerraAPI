@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import routes from "./routes";
+import router from "./routes";
 
 const server = express();
 
@@ -12,6 +12,6 @@ server.use(cors());
 server.use(helmet());
 server.use(morgan("combined"));
 
-routes(server);
+server.use(router);
 
 export default server;

@@ -1,13 +1,13 @@
-const axios = require("axios");
+import axios from "axios";
 
-const url = "https://pro-api.coinmarketcap.com/v1/";
-const key = {
+export const url = "https://pro-api.coinmarketcap.com/v1/";
+export const key = {
   params: {
     CMC_PRO_API_KEY: process.env.CMC_KEY,
   },
 };
 
-function getPrices() {
+export function getPrices() {
     return axios
       .get(url + "cryptocurrency/listings/latest", key)
       .then((response) => response.data);

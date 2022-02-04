@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+import MongoClient from "mongodb";
 
 let database = null;
 const mongoDBURL = "mongodb://127.0.0.1:27017/";
@@ -10,12 +10,7 @@ async function startDatabase() {
   database = connection.db();
 }
 
-async function getDatabase() {
+export default async function getDatabase() {
   if (!database) await startDatabase();
   return database;
 }
-
-module.exports = {
-  getDatabase,
-  startDatabase,
-};

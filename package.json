@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start:dev": "nodemon index.js",
+    "build": "babel index.js --out-dir build",
+    "server-prod": "node dist/index.js",
+    "dev:server": "nodemon index.js",
     "start:prod": "node index.js",
+    "format": "prettier --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,9 +19,6 @@
   "keywords": [
     "terra",
     "api"
-  ],
-  "presets": [
-    "@babel/preset-env"
   ],
   "author": "",
   "license": "ISC",
@@ -39,7 +40,10 @@
   "devDependencies": {
     "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.0",
+    "@babel/node": "^7.16.8",
+    "@babel/register": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
   }
 }

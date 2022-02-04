@@ -1,5 +1,9 @@
-import PostController from './../src/controllers/PostController';
+import express from 'express';
+var router = express.Router();
+import MarketController from '../src/controllers/MarketController';
 
-export default function routes(app) {
-    app.get('/v1/terra/prices', PostController.get);
-}
+router.get('/price', MarketController.getPrices)
+router.get('/tokens', MarketController.getTokens)
+
+export default router;
+
