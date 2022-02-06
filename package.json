@@ -1,16 +1,15 @@
 {
   "name": "terraapi",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
+  "description": "Express Terra API",
   "scripts": {
-    "build": "babel index.js --out-dir build",
-    "server-prod": "node dist/index.js",
-    "dev:server": "nodemon index.js",
-    "start:prod": "node index.js",
-    "format": "prettier --write",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist",
+    "prestart": "yarn build",
+    "lint": "eslint src test",
+    "lint:fix": "eslint src test --fix",
+    "build": "rimraf dist && babel src --copy-files --out-dir dist --source-maps",
+    "start:dev": "nodemon --watch src --exec babel-node src --source-maps",
+    "prettier": "prettier --write **/*.{js,json,yml,md}"
   },
   "repository": {
     "type": "git",
@@ -20,8 +19,9 @@
     "terra",
     "api"
   ],
-  "author": "",
-  "license": "ISC",
+  "private": true,
+  "author": "Guillaume Garcia <guigarciafr@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/VaxoDeFi/TerraAPI/issues"
   },
@@ -45,5 +45,10 @@
     "@babel/preset-env": "^7.16.11",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1"
+  },
+  "engines": {
+    "node": ">= 12.13.0",
+    "npm": ">= 6.12.0",
+    "yarn": ">= 1.20.0"
   }
 }
