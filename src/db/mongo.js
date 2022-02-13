@@ -1,16 +1,20 @@
-import MongoClient from "mongodb";
-
-let database = null;
-const mongoDBURL = "mongodb://127.0.0.1:27017/";
-
-async function startDatabase() {
-  const connection = await MongoClient.connect(mongoDBURL, {
-    useNewUrlParser: true,
-  });
-  database = connection.db();
-}
+import Mongoose from "mongoose";
 
 export default async function getDatabase() {
-  if (!database) await startDatabase();
-  return database;
+  Mongoose.connect(
+    `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`, 
+    {
+      useNewUrlParser: true
+    }
+  );
+  
+  const db = Mongoose.connection;
+  db.on("error", console.error.bind(console, "connection error: "));
+  db.once("open", function () {
+    console.log("Connected successfully");
+  });
+
+  return db;
 }
+
+

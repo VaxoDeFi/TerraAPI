@@ -14,10 +14,3 @@ export async function getCoin() {
   const database = await getDatabase();
   return await database.collection(collectionName).find({}).toArray();
 }
-
-
-
-// module.exports = {
-//   insertCoin,
-//   getCoin,
-// };
