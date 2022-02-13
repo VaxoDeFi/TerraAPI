@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/VaxoDeFi/TerraAPI#readme",
   "dependencies": {
+    "@terra-money/terra.js": "^3.0.6",
     "axios": "^0.25.0",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "helmet": "^5.0.2",
-    "mongodb": "^4.3.1",
-    "mongodb-memory-server": "^8.2.0",
+    "mongoose": "^6.2.1",
     "morgan": "^1.10.0",
     "node-cron": "^3.0.0",
     "pm2": "^5.1.2"
@@ -41,8 +41,8 @@
     "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.0",
     "@babel/node": "^7.16.8",
-    "@babel/register": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
+    "@babel/register": "^7.17.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1"
   },
