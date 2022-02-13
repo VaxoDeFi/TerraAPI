@@ -12,6 +12,6 @@ server.use(cors());
 server.use(helmet());
 server.use(morgan("combined"));
 
-server.use(router);
+server.use('/api/v1/', router);
 
 export default server;
