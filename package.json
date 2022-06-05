@@ -28,15 +28,19 @@
   },
   "homepage": "https://github.com/VaxoDeFi/TerraAPI#readme",
   "dependencies": {
+    "@apollo/client": "^3.6.6",
     "@terra-money/terra.js": "^3.0.6",
     "axios": "^0.25.0",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "helmet": "^5.0.2",
+    "kill-port": "^2.0.0",
     "mongoose": "^6.2.1",
     "morgan": "^1.10.0",
     "node-cron": "^3.0.0",
-    "pm2": "^5.1.2"
+    "pg": "^8.7.3",
+    "pm2": "^5.1.2",
+    "typescript": "^4.7.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.0",
@@ -44,8 +48,11 @@
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/register": "^7.17.0",
+    "@types/pg": "^8.6.5",
     "nodemon": "^2.0.15",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
   },
   "engines": {
     "node": ">= 12.13.0",

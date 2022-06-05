@@ -11,7 +11,7 @@ const QUERY = gql`
   }
 `
 
-export default (address) => {
+export default (address: string) => {
   const [load, result] = useLazyQuery(QUERY, { variables: { address } })
   return { load, ...result }
 }

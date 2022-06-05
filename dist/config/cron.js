@@ -1,25 +1,33 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 var _nodeCron = _interopRequireDefault(require("node-cron"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _marketService = _interopRequireDefault(require("../services/marketService"));
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+var _mongo = _interopRequireDefault(require("../db/mongo"));
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_nodeCron["default"].schedule("1 * * * * *", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-  return regeneratorRuntime.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          console.log("running a task every minute");
+/**
+ * Update prices documents in MongoDB 
+ * 
+ */
+_nodeCron.default.schedule("1 * * * * *", async () => {
+  const priceList = await (0, _marketService.default)();
+  const db = await (0, _mongo.default)();
+  const db_prices = db.collection("prices");
+  db_prices.deleteMany();
+  const options = {
+    ordered: true
+  };
+  const result = await db_prices.insertMany(priceList, options);
+  console.log(`${result.insertedCount} documents were inserted`);
+});
 
-        case 1:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, _callee);
-})));
-//# sourceMappingURL=cron.js.map
+var _default = _nodeCron.default;
+exports.default = _default;
