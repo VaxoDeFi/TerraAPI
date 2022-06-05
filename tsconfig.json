@@ -1,0 +1,26 @@
+
+{
+    "include": ["src/**/*.ts", "types/**/*.ts",], 
+    "compilerOptions": {
+      "allowJs": false,
+      "outDir": "dist",
+      "module": "ESNext",
+      "target": "ESNext",
+      "sourceMap": true,
+      "moduleResolution": "node",
+      "jsx": "preserve",
+      "baseUrl": "./",
+      /* paths - import rewriting/resolving */
+      "paths": {
+        "@env": ["./src/env.ts"]
+      },
+      /* Additional Options */
+      "strict": true,
+      "skipLibCheck": true,
+      "types": ["node"],
+      "forceConsistentCasingInFileNames": true,
+      "resolveJsonModule": true,
+      "allowSyntheticDefaultImports": true,
+      "importsNotUsedAsValues": "error"
+    }
+  }

@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "Express Terra API",
   "scripts": {
-    "start": "node dist",
+    "start": "node --es-module-specifier-resolution=node dist/index.js",
+    "build": "babel src --out-dir dist --extensions .ts",
+    "inspect": "kill-port --port 8080 && node --inspect=0.0.0.0:8080 --es-module-specifier-resolution=node dist/index.js",
+    "start:dev": "nodemon --watch src --exec babel-node src --source-maps",
     "prestart": "yarn build",
     "lint": "eslint src test",
     "lint:fix": "eslint src test --fix",
-    "build": "rimraf dist && babel src --copy-files --out-dir dist --source-maps",
-    "start:dev": "nodemon --watch src --exec babel-node src --source-maps",
-    "prettier": "prettier --write **/*.{js,json,yml,md}"
+    "prettier": "prettier --write **/*.{js,jsx,json,yml,md,ts,tsx}"
   },
   "repository": {
     "type": "git",

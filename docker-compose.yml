@@ -2,21 +2,44 @@ version: '3.4'
 
 services:
   terraapi:
-    image: terraapi
+    image: vaxo/
     build:
       context: .
       dockerfile: ./Dockerfile
-    environment:
-      NODE_ENV: production
     ports:
-      - 2507:2507
+      - "8080:80"
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - API_URL
+      - PORT=80
 
   mongodb:
     image: mongo:latest
     environment:
-      MONGO_INITDB_ROOT_USERNAME: api
-      MONGO_INITDB_ROOT_PASSWORD: docker1234
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
     ports:
       - 27017:27017
     volumes:
       - mongodb:/data/db
+
+  postgres:
+    image: postgres:13.3-alpine
+    restart: always
+    volumes:
+      - ./db-init:/docker-entrypoint-initdb.d
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    networks:
+      - database
+volumes:
+  pgdata:
+networks:
+  database:
