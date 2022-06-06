@@ -1,28 +1,15 @@
-import app from './config/server';
-// import tasks from './config/cron';
-const port = 4000;
+import express from 'express';
+import buildServer from './server';
+import env from "@env";
 
+async function startServer() {
 
+  const app = express();
+  await buildServer({ server: app });
 
-// require("dotenv").config();
+  app.listen(env.PORT, () => {
+    console.log(`Your server is ready !`);
+  });
+}
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(cors());
-// app.use(helmet());
-// app.use(morgan("combined"));
-
-// server.use(require('./routes'));
-
-
-// console.log(mongo.getDatabase());
-// coins.insertCoin()
-
-// cron.schedule("1 * * * * *", async () => {
-//   console.log("running a task every minute");
-//   const list = await getListCoins();
-//   console.log(list);
-// });
-app.listen(port, () => {
-  console.log(`API Pond at http://localhost:${port}`);
-});
+startServer();

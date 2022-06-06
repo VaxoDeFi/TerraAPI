@@ -1,4 +1,4 @@
-import tokens from '../data/whitelist.json';
+// import tokens from '../data/whitelist.json';
 
 class MarketController {
 
@@ -7,7 +7,7 @@ class MarketController {
    */
   async getTokenBalance(req, res) {
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(tokens));
+    // res.end(JSON.stringify(tokens));
     return res;
   }
 
@@ -19,7 +19,7 @@ class MarketController {
       return res.status(500);
     }
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(tokens));
+    // res.end(JSON.stringify(tokens));
     return res;
   }
 }

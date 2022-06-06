@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-const { Schema } = mongoose;
+// import mongoose from "mongoose";
+// const { Schema } = mongoose;
 
 // const PricesSchema = Schema({
 //   symbol: {
@@ -42,4 +42,4 @@ const { Schema } = mongoose;
 
 // const PriceModel = mongoose.model("Prices", PricesSchema);
 
-export default PriceModel;
+// export default PriceModel;

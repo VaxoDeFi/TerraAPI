@@ -1,21 +1,11 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _whitelist = _interopRequireDefault(require("../data/whitelist.json"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+// import tokens from '../data/whitelist.json';
 class MarketController {
   /**
    * GET /api/coins/balance/:address
    */
   async getTokenBalance(req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(_whitelist.default));
+    res.setHeader('Content-Type', 'application/json'); // res.end(JSON.stringify(tokens));
+
     return res;
   }
   /**
@@ -28,13 +18,11 @@ class MarketController {
       return res.status(500);
     }
 
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(_whitelist.default));
+    res.setHeader('Content-Type', 'application/json'); // res.end(JSON.stringify(tokens));
+
     return res;
   }
 
 }
 
-var _default = new MarketController();
-
-exports.default = _default;
+export default new MarketController();

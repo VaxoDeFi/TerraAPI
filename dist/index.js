@@ -1,25 +1,15 @@
-"use strict";
+import express from 'express';
+import buildServer from "./server";
+import env from "./env";
 
-var _server = _interopRequireDefault(require("./config/server"));
+async function startServer() {
+  const app = express();
+  await buildServer({
+    server: app
+  });
+  app.listen(env.PORT, () => {
+    console.log(`Your server is ready !`);
+  });
+}
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// import tasks from './config/cron';
-const port = 4000; // require("dotenv").config();
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(cors());
-// app.use(helmet());
-// app.use(morgan("combined"));
-// server.use(require('./routes'));
-// console.log(mongo.getDatabase());
-// coins.insertCoin()
-// cron.schedule("1 * * * * *", async () => {
-//   console.log("running a task every minute");
-//   const list = await getListCoins();
-//   console.log(list);
-// });
-
-_server.default.listen(port, () => {
-  console.log(`API Pond at http://localhost:${port}`);
-});
+startServer();

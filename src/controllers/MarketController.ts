@@ -1,6 +1,6 @@
-import tokens from '../data/whitelist.json';
+// import tokens from '../data/whitelist.json';
 import axios from 'axios';
-import pricesModel from "../models/pricesModel";
+// import pricesModel from "../models/pricesModel";
 import {fetchPrices,fetchPairs} from '../services/marketService';
 import getDatabase from '../db/mongo';
 
@@ -11,11 +11,11 @@ class MarketController {
    */
   async getPrices(req, res) {
     const db = await getDatabase();
-    const db_prices = db.collection("prices");
-    const cursor = db_prices.find();
-    const results = await cursor.toArray();
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(results));
+    // const db_prices = db.collection("prices");
+    // const cursor = db_prices.find();
+    // const results = await cursor.toArray();
+    // res.setHeader('Content-Type', 'application/json');
+    // res.end(JSON.stringify(results));
     return res;
   }
 
@@ -26,12 +26,12 @@ class MarketController {
     if(!req.params.denom){
       return res.status(500);
     }
-    const denom = req.params.denom;
-    const db = await getDatabase();
-    const db_prices = db.collection("prices");
-    const result = await db_prices.findOne({symbol: denom});
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(result));
+    // const denom = req.params.denom;
+    // const db = await getDatabase();
+    // const db_prices = db.collection("prices");
+    // const result = await db_prices.findOne({symbol: denom});
+    // res.setHeader('Content-Type', 'application/json');
+    // res.end(JSON.stringify(result));
     return res;
   }
 

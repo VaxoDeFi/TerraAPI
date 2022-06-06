@@ -1,4 +1,4 @@
-import getDatabase from '../db/mongo';
+import getDatabase from '../mongo';
 
 
 /**
@@ -6,7 +6,7 @@ import getDatabase from '../db/mongo';
  *
  * @returns {Promise}
  */
-export async function updatePrices(pricesList){
+export const updatePrices = async (): Promise<any> => {
     const db = await getDatabase();
     return;
 }
@@ -16,16 +16,16 @@ export async function updatePrices(pricesList){
  *
  * @returns {Promise}
  */
-export async function getPrices(){
+export const getPrices = async (): Promise<any> => {
     const db = await getDatabase();
 }
 
 
 /**
- * Query specific price document in prices collection.
+ * Query specific price document in price collection.
  *
  * @returns {Promise}
  */
- export async function getPrices(){
+ export const getPrice = async (): Promise<any> => {
     const db = await getDatabase();
 }
