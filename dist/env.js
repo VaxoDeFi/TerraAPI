@@ -13,7 +13,7 @@ export default {
   ORIGIN: process.env.ORIGIN,
   ORIGIN_TOOLS: process.env.ORIGIN_TOOLS,
   API_URL: process.env.API_URL,
-  PORT: process.env.APP_PORT ? "80" : "8080",
+  PORT: process.env.PORT ? "80" : "8080",
   IP: process.env.APP_ID ? "0.0.0.0" : "127.0.0.1",
   COOKIE_SECRET: process.env.COOKIE_SECRET,
   TESTING: !!process.env.TESTING
