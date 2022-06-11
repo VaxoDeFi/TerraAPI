@@ -6,9 +6,8 @@
   "scripts": {
     "start": "node --es-module-specifier-resolution=node dist/index.js",
     "build": "babel src --out-dir dist --extensions .ts",
-    "inspect": "kill-port --port 8080 && node --inspect=0.0.0.0:8080 --es-module-specifier-resolution=node dist/index.js",
-    "start:dev": "nodemon --watch src --exec babel-node src --source-maps",
-    "prestart": "yarn build",
+    "inspect": "kill-port --port 8085 && node --inspect=0.0.0.0:8085 --es-module-specifier-resolution=node dist/index.js",
+    "start:dev": "nodemon --watch dist/ dist/index.js --exec \"npm run start\"",
     "lint": "eslint src test",
     "lint:fix": "eslint src test --fix",
     "prettier": "prettier --write **/*.{js,jsx,json,yml,md,ts,tsx}"

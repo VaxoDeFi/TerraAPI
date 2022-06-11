@@ -1,10 +1,9 @@
-import express from 'express';
-import buildServer from './server';
+import express from "express";
+import buildServer from "./server";
 import env from "@env";
 
 async function startServer() {
-
-  const PORT = process.env.PORT || 3000;
+  const PORT = process.env.PORT || 8085;
   const app = express();
   await buildServer({ server: app });
 
