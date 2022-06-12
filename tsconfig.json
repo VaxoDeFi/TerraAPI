@@ -12,8 +12,7 @@
       "baseUrl": "./",
       /* paths - import rewriting/resolving */
       "paths": {
-        "@env": ["./src/env.ts"],
-        "@queries/*": ["./src/services/*"]
+        "@env": ["./src/env.ts"]
       },
       /* Additional Options */
       "strict": true,
