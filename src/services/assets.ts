@@ -1,6 +1,28 @@
 // // import tokens from '../data/whitelist.json';
 import env from "@env";
 import axios from "axios";
+import { createOrUpdate } from "../db/pg/coins";
+import { Alchemy, Network } from "alchemy-sdk";
+
+export async function updateAssets(data: CoinDB[]) {
+  console.log(data);
+  const newData = data.map((v: any) => {
+    v.idRank = v.id;
+    v.icon = "";
+    delete v.id;
+    return v;
+  });
+  await createOrUpdate(newData);
+}
+
+/**
+ * Get all prices.
+ *
+ */
+export async function getBalance(address: string) {
+  const assets = await axios.get(`https://api.coincap.io/v2/assets`);
+  return assets;
+}
 
 /**
  * Get all prices.

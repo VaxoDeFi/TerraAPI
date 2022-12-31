@@ -13,9 +13,4 @@ Router.use("/", Prices);
  */
 Router.use("/res", Resources);
 
-// /**
-//  * GET /api/price/:denom
-//  */
-//  Router.get('/price/:denom', MarketController.getPrice)
-
 export default Router;

@@ -1,12 +1,9 @@
 import express from "express";
 var server = express.Router();
-import env from "@env";
-import axios from "axios";
 import { getAssets, getAsset } from "../services/assets";
 
 server.get("/prices", async (req, res) => {
   try {
-    console.log(env.COINCAP_URL);
     const assets = await getAssets();
     res.status(200).send(assets.data);
   } catch (e) {
@@ -26,7 +23,6 @@ server.get("/price/:id", async (req, res) => {
 
 server.get("/dex/prices", async (req, res) => {
   try {
-    console.log(env.COINCAP_URL);
     const assets = await getAssets();
     res.status(200).send(assets.data);
   } catch (e) {

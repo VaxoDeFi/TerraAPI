@@ -1,6 +1,5 @@
 import { prisma } from "../prisma";
-
-export const create = async (coin: CoinAPIDB) => {
+export const create = async coin => {
   const newCoin = await prisma.coin.create({
     data: {
       idRank: coin.idRank,
@@ -15,37 +14,35 @@ export const create = async (coin: CoinAPIDB) => {
       changePercent24Hr: coin.changePercent24Hr,
       vwap24Hr: coin.vwap24Hr,
       explorer: coin.explorer,
-      icon: coin.icon,
-    },
+      icon: coin.icon
+    }
   });
-
   return newCoin;
 };
-
-export const deleteCoin = async (id: string) => {
+export const deleteCoin = async id => {
   const res = await prisma.coin.delete({
     where: {
-      symbol: id,
-    },
+      symbol: id
+    }
   });
   return res;
 };
-
-export const createOrUpdate = async (data: CoinAPIDB[]) => {
+export const createOrUpdate = async data => {
   for (var i = 0; i < data.length; i++) {
     const coin = await findCoin(data[i].symbol);
     console.log(coin);
+
     if (coin) {
       await deleteCoin(data[i].symbol);
     }
+
     await create(data[i]);
   }
 };
-
-export const updateCoin = async (coin: CoinDB) => {
+export const updateCoin = async coin => {
   const updateUser = await prisma.coin.update({
     where: {
-      symbol: coin.symbol,
+      symbol: coin.symbol
     },
     data: {
       idRank: coin.idRank,
@@ -59,37 +56,33 @@ export const updateCoin = async (coin: CoinDB) => {
       priceUsd: coin.priceUsd,
       changePercent24Hr: coin.changePercent24Hr,
       vwap24Hr: coin.vwap24Hr,
-      explorer: coin.explorer,
-    },
+      explorer: coin.explorer
+    }
   });
   return updateUser;
 };
-
 export const allCoins = async () => {
   const allCoins = await prisma.coin.findMany();
   return allCoins;
 };
-
 export const getCount = async () => {
   const allCoins = await prisma.coin.findMany();
   return allCoins.length;
 };
-
-export const getCoinByPage = async (rows: number) => {
+export const getCoinByPage = async rows => {
   const coins = await prisma.coin.findMany({
     take: rows,
     orderBy: {
-      marketCapUsd: "desc",
-    },
+      marketCapUsd: "desc"
+    }
   });
   return coins;
 };
-
-export const findCoin = async (symbol: string) => {
+export const findCoin = async symbol => {
   const user = await prisma.coin.findUnique({
     where: {
-      symbol,
-    },
+      symbol
+    }
   });
   return user;
 };

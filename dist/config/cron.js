@@ -1,19 +1,14 @@
-import cron from "node-cron"; // import fetchPrices from '../services/marketService';
-
-import getDatabase from "../db/mongo";
+import cron from "node-cron";
+import { getAssets, updateAssets } from "../services/assets";
 /**
- * Update prices in Database 
- * 
+ * Update prices in Database
+ *
  */
 
-cron.schedule("1 * * * * *", async () => {
-  // const priceList = await fetchPrices();
-  const db = await getDatabase();
-  const db_prices = db.collection("prices"); // db_prices.deleteMany();
-
-  const options = {
-    ordered: true
-  }; // const result = await db_prices.insertMany(priceList, options);
-  // console.log(`${result.insertedCount} documents were inserted`);
+cron.schedule("5 * * * * *", async () => {
+  console.log("Running CRON JOB ");
+  const assets = await getAssets();
+  const test = assets.data;
+  await updateAssets(test.data);
 });
 export default cron;

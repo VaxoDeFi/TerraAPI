@@ -7,21 +7,22 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("POSTGRESQL_ADDON_URI")
 }
 
 model Coin {
-  id                String  @id
+  id                Int     @default(autoincrement())
+  idRank            String
   rank              Int
   symbol            String  @unique
   name              String?
   supply            String
   maxSupply         String?
   marketCapUsd      String
-  volumeUsd24Hr     String
-  priceUsd          String
-  changePercent24Hr String
-  vwap24Hr          String
-  explorer          String
-  icon              String
+  volumeUsd24Hr     String?
+  priceUsd          String?
+  changePercent24Hr String?
+  vwap24Hr          String?
+  explorer          String?
+  icon              String?
 }

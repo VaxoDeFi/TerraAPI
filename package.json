@@ -25,6 +25,7 @@
   "homepage": "https://github.com/VaxoDeFi/TerraAPI#readme",
   "dependencies": {
     "@apollo/client": "^3.6.6",
+    "@prisma/client": "4.8.0",
     "axios": "^0.25.0",
     "cors": "^2.8.5",
     "express": "^4.17.2",

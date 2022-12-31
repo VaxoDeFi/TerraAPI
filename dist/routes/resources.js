@@ -23,7 +23,7 @@ const returnFile = async (path, res) => {
 
 res.get("/assets/:id.png", async (req, res) => {
   const id = req.params.id;
-  const path = `/assets/32@2x/icon/${id}@2x.png`;
+  const path = `resources/assets/32@2x/icon/${id}@2x.png`;
   await returnFile(path, res);
 });
 export default res;
