@@ -1,6 +1,6 @@
 import express from "express";
 var server = express.Router();
-import { getAssets, getAsset } from "../services/assets";
+import { getAssets, getBalance, getAsset } from "../services/assets";
 
 server.get("/total", async (req, res) => {
   try {
@@ -17,7 +17,7 @@ server.get("/:address", async (req, res) => {
     const assets = await getBalance(address);
     res.status(200).send(assets);
   } catch (e) {
-    res.status(500).end("[API:PRICE] Couldn't fetch price asset | " + e);
+    res.status(500).end("[API:BALANCE] Couldn't get balance tokens | " + e);
   }
 });
 
