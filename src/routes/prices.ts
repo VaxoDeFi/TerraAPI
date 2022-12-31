@@ -24,4 +24,23 @@ server.get("/price/:id", async (req, res) => {
   }
 });
 
+server.get("/dex/prices", async (req, res) => {
+  try {
+    console.log(env.COINCAP_URL);
+    const assets = await getAssets();
+    res.status(200).send(assets.data);
+  } catch (e) {
+    res.status(500).end("[API:PRICES] Couldn't fetch prices assets | " + e);
+  }
+});
+
+server.get("/dex/price/:id", async (req, res) => {
+  try {
+    const assets = await getAssets();
+    res.status(200).send(assets.data);
+  } catch (e) {
+    res.status(500).end("[API:PRICES] Couldn't fetch prices assets | " + e);
+  }
+});
+
 export default server;

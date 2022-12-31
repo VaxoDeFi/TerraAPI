@@ -1,4 +1,3 @@
-// // import tokens from '../data/whitelist.json';
 import env from "@env";
 import axios from "axios";
 
@@ -17,11 +16,9 @@ export async function getAssets() {
  */
 export async function getAsset(id: string) {
   const req = await axios.get(`https://api.coincap.io/v2/assets/${id}`);
-  console.log(req);
   const candle = await axios.get(
     `https://api.coincap.io/v2/candles?exchange=binance&interval=m30&baseId=${id}&quoteId=tether`
   );
-  console.log(candle);
   const asset = req.data.data;
   asset["candle_m30"] = candle.data.data;
   asset["icon"] = "";
