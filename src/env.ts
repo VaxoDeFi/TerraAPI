@@ -23,6 +23,7 @@ export default {
   MONGODB_ADDON_DB: process.env.DOCKER_ENV
     ? process.env.MONGODB_DB
     : process.env.MONGODB_ADDON_DB,
+  ALCHEMY_KEY: process.env.ALCHEMY_KEY,
   BUCKET_HOST: process.env.BUCKET_HOST,
   ORIGIN: process.env.ORIGIN,
   ORIGIN_TOOLS: process.env.ORIGIN_TOOLS,
