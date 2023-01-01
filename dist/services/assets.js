@@ -13,7 +13,7 @@ export async function updateAssets(data) {
   await createOrUpdate(newData);
 }
 /**
- * Get all prices.
+ * Get all token from balance.
  *
  */
 

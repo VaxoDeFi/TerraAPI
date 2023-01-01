@@ -16,7 +16,7 @@ export async function updateAssets(data: CoinDB[]) {
 }
 
 /**
- * Get all prices.
+ * Get all token from balance.
  *
  */
 export async function getTokenBalances(address: string) {
