@@ -3,7 +3,6 @@ import axios from "axios";
 import { createOrUpdate } from "../db/pg/coins";
 import { alchemy } from "./alchemy";
 export async function updateAssets(data) {
-  console.log(data);
   const newData = data.map(v => {
     v.idRank = v.id;
     v.icon = "";

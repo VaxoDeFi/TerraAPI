@@ -4,20 +4,7 @@ import axios from "axios";
  *
  */
 
-export async function getAssets() {
+export async function getFile() {
   const assets = await axios.get(`https://api.coincap.io/v2/assets`);
   return assets;
-}
-/**
- * Get pairs from API.
- *
- */
-
-export async function getAsset(id) {
-  const req = await axios.get(`https://api.coincap.io/v2/assets/${id}`);
-  const candle = await axios.get(`https://api.coincap.io/v2/candles?exchange=binance&interval=m30&baseId=${id}&quoteId=tether`);
-  const asset = req.data.data;
-  asset["candle_m30"] = candle.data.data;
-  asset["icon"] = "";
-  return asset;
 }

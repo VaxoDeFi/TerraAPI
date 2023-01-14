@@ -3,7 +3,6 @@ import Router from "./router";
 import morgan from "morgan";
 import helmet from "helmet";
 import cors from "cors";
-import e from "express";
 import env from "@env";
 
 export default async ({ server }: { server: express.Application }) => {
@@ -14,7 +13,6 @@ export default async ({ server }: { server: express.Application }) => {
     res.status(200).end();
   });
   server.enable("trust proxy");
-
   server.use(cors());
   server.use(helmet());
   if (env.MODE === "dev") {

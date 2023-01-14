@@ -27,10 +27,21 @@ export const deleteCoin = async id => {
   });
   return res;
 };
-export const createOrUpdate = async data => {
+export const deleteCreate = async data => {
   for (var i = 0; i < data.length; i++) {
     const coin = await findCoin(data[i].symbol);
     console.log(coin);
+
+    if (coin) {
+      await deleteCoin(data[i].symbol);
+    }
+
+    await create(data[i]);
+  }
+};
+export const createOrUpdate = async data => {
+  for (var i = 0; i < data.length; i++) {
+    const coin = await findCoin(data[i].symbol);
 
     if (coin) {
       await deleteCoin(data[i].symbol);

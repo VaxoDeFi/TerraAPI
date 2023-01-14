@@ -5,7 +5,6 @@ import { createOrUpdate } from "../db/pg/coins";
 import { alchemy } from "./alchemy";
 
 export async function updateAssets(data: CoinDB[]) {
-  console.log(data);
   const newData = data.map((v: any) => {
     v.idRank = v.id;
     v.icon = "";
