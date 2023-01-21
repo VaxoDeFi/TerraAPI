@@ -2,18 +2,11 @@ import express from "express";
 import cluster from "cluster";
 import { cpus } from "os";
 import process from "process";
-import Queue from "bull";
 import buildServer from "./server";
 import env from "./env";
 import { prisma } from "./db/prisma";
-import MessariPrices from "./config/messari";
-const totalCPUs = cpus().length;
-const apiQueue = new Queue("apiQueue");
-apiQueue.add(MessariPrices, {
-  repeat: {
-    every: 60000
-  }
-});
+const totalCPUs = cpus().length; // const apiQueue = new Queue("apiQueue");
+// apiQueue.add(MessariPrices, { repeat: { every: 60000 } });
 
 if (cluster.isPrimary) {
   var title = "💖  Vaxo BACKEND  📒\n";
@@ -29,8 +22,7 @@ async function startServer() {
     server: app
   });
   app.listen(PORT, async () => {
-    console.log(`Your server is ready ! http://0.0.0.0:${PORT}`);
-    await apiQueue.process("apiQueue", MessariPrices);
+    console.log(`Your server is ready ! http://0.0.0.0:${PORT}`); // await apiQueue.process("apiQueue", MessariPrices);
   });
 }
 
