@@ -10,9 +10,9 @@ import MessariPrices from "./config/messari";
 
 const totalCPUs = cpus().length;
 
-const apiQueue = new Queue("apiQueue");
+// const apiQueue = new Queue("apiQueue");
 
-apiQueue.add(MessariPrices, { repeat: { every: 60000 } });
+// apiQueue.add(MessariPrices, { repeat: { every: 60000 } });
 
 if (cluster.isPrimary) {
   var title = "💖  Vaxo BACKEND  📒\n";
@@ -28,7 +28,7 @@ async function startServer() {
 
   app.listen(PORT, async () => {
     console.log(`Your server is ready ! http://0.0.0.0:${PORT}`);
-    await apiQueue.process("apiQueue", MessariPrices);
+    // await apiQueue.process("apiQueue", MessariPrices);
   });
 }
 
