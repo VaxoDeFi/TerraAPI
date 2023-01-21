@@ -19,6 +19,7 @@ export default {
     ? process.env.POSTGRES_USER
     : process.env.POSTGRESQL_ADDON_USER,
   ALCHEMY_KEY: process.env.ALCHEMY_KEY,
+  MESSARI_KEY: process.env.MESSARI_KEY,
   BUCKET_HOST: process.env.BUCKET_HOST,
   API_URL: process.env.API_URL,
   COOKIE_SECRET: process.env.COOKIE_SECRET,

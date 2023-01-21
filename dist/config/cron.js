@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import Bree from "bree";
+
 /**
  * Update prices in Database
  *
@@ -29,12 +29,4 @@ import Bree from "bree";
 //     console.log(error);
 //   }
 // });
-
-const bree = new Bree({
-  jobs: [{
-    name: "email",
-    interval: "10s"
-  }]
-});
-bree.start();
 export default cron;

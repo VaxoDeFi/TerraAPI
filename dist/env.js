@@ -9,6 +9,7 @@ export default {
   POSTGRESQL_ADDON_PORT: process.env.DOCKER_ENV ? "" : process.env.POSTGRESQL_ADDON_PORT,
   POSTGRESQL_ADDON_USER: process.env.DOCKER_ENV ? process.env.POSTGRES_USER : process.env.POSTGRESQL_ADDON_USER,
   ALCHEMY_KEY: process.env.ALCHEMY_KEY,
+  MESSARI_KEY: process.env.MESSARI_KEY,
   BUCKET_HOST: process.env.BUCKET_HOST,
   API_URL: process.env.API_URL,
   COOKIE_SECRET: process.env.COOKIE_SECRET,
