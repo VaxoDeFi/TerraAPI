@@ -2,8 +2,7 @@ import chalk from "chalk";
 import ora from "ora";
 import { getAssets, updateAssets } from "../services/assets";
 
-async function MessariPrices() {
-  console.log(chalk.green("Running scheduled job"));
+async function MessariPrices(job, done) {
   const spinner = ora({
     text: "Job starting - Assets scraping",
     color: "blue",
@@ -21,6 +20,7 @@ async function MessariPrices() {
     spinner.succeed(`Successfull after ${Date.now() - date}ms`);
     spinner.clear();
     console.log(chalk.yellow.bold(`Crypto Assets on ${new Date().toISOString()}:`));
+    done();
   } catch (error) {
     spinner.fail("Scraping failed");
     spinner.clear();

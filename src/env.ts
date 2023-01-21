@@ -18,6 +18,9 @@ export default {
   POSTGRESQL_ADDON_USER: process.env.DOCKER_ENV
     ? process.env.POSTGRES_USER
     : process.env.POSTGRESQL_ADDON_USER,
+  REDIS_HOST: process.env.REDIS_HOST,
+  REDIS_PORT: process.env.REDIS_PORT,
+  REDIS_PASSWORD: process.env.REDIS_PASSWORD,
   ALCHEMY_KEY: process.env.ALCHEMY_KEY,
   MESSARI_KEY: process.env.MESSARI_KEY,
   BUCKET_HOST: process.env.BUCKET_HOST,

@@ -6,11 +6,14 @@
   "scripts": {
     "start": "node --es-module-specifier-resolution=node dist/index.js",
     "build": "babel src --out-dir dist --extensions .ts",
+    "debugbuild": "babel src --out-dir dist --extensions .ts --source-maps inline",
+    "dev": "nodemon -L --delay 3 --watch dist/ --watch package.json --watch .env --watch prisma/ --exec \"npm run inspect\"",
+    "autobuild": "nodemon -L --delay 4 -e ts --watch src/ --exec \"npm run debugbuild\"",
+    "postinstall": "yarn build",
     "inspect": "kill-port --port 8085 && node --inspect=0.0.0.0:8085 --es-module-specifier-resolution=node dist/index.js",
-    "start:dev": "nodemon --watch dist/ dist/index.js --exec \"npm run start\"",
     "lint": "eslint src test",
     "lint:fix": "eslint src test --fix",
-    "prettier": "prettier --write **/*.{js,jsx,json,yml,md,ts,tsx}"
+    "format": "prettier --write **/*.{js,jsx,json,yml,md,ts,tsx}"
   },
   "repository": {
     "type": "git",
@@ -33,6 +36,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "helmet": "^5.0.2",
+    "ioredis": "^5.2.5",
     "kill-port": "^2.0.0",
     "mongoose": "^6.2.1",
     "morgan": "^1.10.0",
@@ -40,6 +44,7 @@
     "ora": "^6.1.2",
     "pg": "^8.7.3",
     "pm2": "^5.1.2",
+    "redis": "^4.5.1",
     "url": "^0.11.0"
   },
   "devDependencies": {

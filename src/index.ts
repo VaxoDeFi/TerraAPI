@@ -7,12 +7,17 @@ import buildServer from "./server";
 import env from "@env";
 import { prisma } from "./db/prisma";
 import MessariPrices from "./config/messari";
+import Redis from "ioredis";
 
 const totalCPUs = cpus().length;
 
-// const apiQueue = new Queue("apiQueue");
-
-// apiQueue.add(MessariPrices, { repeat: { every: 60000 } });
+const apiQueue = new Queue("apiQueue", {
+  redis: {
+    port: Number(env.REDIS_PORT),
+    host: env.REDIS_HOST,
+    password: env.REDIS_PASSWORD ? env.REDIS_PASSWORD : "",
+  },
+});
 
 if (cluster.isPrimary) {
   var title = "💖  Vaxo BACKEND  📒\n";
@@ -28,7 +33,6 @@ async function startServer() {
 
   app.listen(PORT, async () => {
     console.log(`Your server is ready ! http://0.0.0.0:${PORT}`);
-    // await apiQueue.process("apiQueue", MessariPrices);
   });
 }
 
@@ -56,6 +60,7 @@ if (cluster.isPrimary) {
   }
   cluster.on("online", function (worker) {
     console.log("Worker " + worker.process.pid + " is online");
+    apiQueue.add(MessariPrices, { repeat: { every: 60000 } });
   });
   cluster.on("message", async (worker, message) => {
     // if (message.code == 'metrics_request') {
@@ -78,4 +83,10 @@ if (cluster.isPrimary) {
 }
 
 // Start Server
-else startServer();
+else {
+  apiQueue.process(async function (job, jobDone) {
+    console.log("Job done by worker", job.id);
+    await MessariPrices(job, jobDone);
+  });
+  startServer();
+}
