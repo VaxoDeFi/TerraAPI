@@ -10,7 +10,7 @@ import Balances from "./routes/balances";
 Router.use("/", Prices);
 
 /**
- * GET /res/
+ * GET /balances/
  */
 Router.use("/balances", Balances);
 

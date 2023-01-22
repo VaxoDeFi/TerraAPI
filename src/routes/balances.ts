@@ -1,15 +1,6 @@
 import express from "express";
 var server = express.Router();
-import { getAssets, getTokenBalances, getAsset } from "../services/assets";
-
-server.get("/total", async (req, res) => {
-  try {
-    const assets = await getAssets();
-    res.status(200).send(assets.data);
-  } catch (e) {
-    res.status(500).end("[API:PRICES] Couldn't fetch prices assets | " + e);
-  }
-});
+import { getTokenBalances, getAsset } from "../services/assets";
 
 server.get("/:address", async (req, res) => {
   try {

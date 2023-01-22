@@ -4,6 +4,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cors from "cors";
 import env from "@env";
+import { dirname } from "path";
 
 export default async ({ server }: { server: express.Application }) => {
   server.get("/status", (req, res) => {
@@ -22,6 +23,8 @@ export default async ({ server }: { server: express.Application }) => {
   }
   server.use(express.urlencoded({ extended: true }));
   server.use(express.json());
+
+  server.use("/resources", express.static("resources"));
 
   server.use("/", Router);
 

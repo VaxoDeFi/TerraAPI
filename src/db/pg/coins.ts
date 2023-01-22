@@ -31,24 +31,51 @@ export const deleteCoin = async (id: string) => {
   return res;
 };
 
-export const deleteCreate = async (data: CoinAPIDB[]) => {
-  for (var i = 0; i < data.length; i++) {
-    const coin = await findCoin(data[i].symbol);
-    console.log(coin);
-    if (coin) {
-      await deleteCoin(data[i].symbol);
-    }
-    await create(data[i]);
-  }
-};
+// export const deleteCreate = async (data: CoinAPIDB[]) => {
+//   for (var i = 0; i < data.length; i++) {
+//     const coin = await findCoin(data[i].symbol);
+//     console.log(coin);
+//     if (coin) {
+//       await deleteCoin(data[i].symbol);
+//     }
+//     await create(data[i]);
+//   }
+// };
 
 export const createOrUpdate = async (data: CoinAPIDB[]) => {
   for (var i = 0; i < data.length; i++) {
-    const coin = await findCoin(data[i].symbol);
-    if (coin) {
-      await deleteCoin(data[i].symbol);
-    }
-    await create(data[i]);
+    const upsertUser = await prisma.coin.upsert({
+      where: {
+        symbol: data[i].symbol,
+      },
+      update: {
+        rank: Number(data[i].rank),
+        supply: data[i].supply,
+        maxSupply: data[i].maxSupply,
+        marketCapUsd: data[i].marketCapUsd,
+        volumeUsd24Hr: data[i].volumeUsd24Hr,
+        priceUsd: data[i].priceUsd,
+        changePercent24Hr: data[i].changePercent24Hr,
+        vwap24Hr: data[i].vwap24Hr,
+        explorer: data[i].explorer,
+        icon: data[i].icon,
+      },
+      create: {
+        idRank: data[i].idRank,
+        rank: Number(data[i].rank),
+        symbol: data[i].symbol,
+        name: data[i].name,
+        supply: data[i].supply,
+        maxSupply: data[i].maxSupply,
+        marketCapUsd: data[i].marketCapUsd,
+        volumeUsd24Hr: data[i].volumeUsd24Hr,
+        priceUsd: data[i].priceUsd,
+        changePercent24Hr: data[i].changePercent24Hr,
+        vwap24Hr: data[i].vwap24Hr,
+        explorer: data[i].explorer,
+        icon: data[i].icon,
+      },
+    });
   }
 };
 

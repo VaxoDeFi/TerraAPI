@@ -52,10 +52,19 @@ export async function getTokenBalances(address: string) {
 }
 
 /**
- * Get all prices.
+ * Get all prices API COIN.
  *
  */
-export async function getAssets() {
+export async function getApiCoinAssets() {
+  const assets = await axios.get(`https://api.coincap.io/v2/assets`);
+  return assets;
+}
+
+/**
+ * Get all prices API Messari.
+ *
+ */
+export async function getApiMessari() {
   const assets = await axios.get(`https://api.coincap.io/v2/assets`);
   return assets;
 }
