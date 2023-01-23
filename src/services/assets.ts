@@ -1,6 +1,7 @@
 // // import tokens from '../data/whitelist.json';
 import env from "@env";
 import axios from "axios";
+import { checkFileExists } from "../routes/resources";
 import { createOrUpdate } from "../db/pg/coins";
 import { alchemy } from "./alchemy";
 
@@ -35,7 +36,19 @@ export async function getTokenBalances(address: string) {
     const metadata: any = await alchemy.core.getTokenMetadata(
       token.contractAddress
     );
+
     coin.logo = metadata.logo;
+    coin.vaxo_icon = null;
+    const path = `resources/32@2x/icon/${String(
+      metadata.symbol
+    ).toLowerCase()}@2x.png`;
+    const exists = await checkFileExists(path);
+    if (exists) {
+      coin.vaxo_icon = `/res/assets/${String(
+        metadata.symbol
+      ).toLowerCase()}.png`;
+      coin.logo = null;
+    }
     coin.name = metadata.name;
     coin.symbol = metadata.symbol;
     coin.decimals = metadata.decimals;

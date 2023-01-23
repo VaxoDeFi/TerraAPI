@@ -6,15 +6,13 @@ import { access } from "fs/promises";
 import { F_OK } from "constants";
 import type { Request, Response } from "express";
 
-const checkFileExists = async (file: string) =>
+export const checkFileExists = async (file: string) =>
   await access(file, F_OK)
     .then(() => true)
     .catch(() => false);
 
 const returnFile = async (path: string, id: string, res: Response) => {
   const exists = await checkFileExists(path);
-  console.log(exists);
-  console.log(path);
   if (!exists) {
     res.status(404).send("File doesn't exist");
     return;
