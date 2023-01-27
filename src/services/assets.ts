@@ -3,6 +3,7 @@ import env from "@env";
 import axios from "axios";
 import { checkFileExists } from "../routes/resources";
 import { createOrUpdate } from "../db/pg/coins";
+import { Utils } from "alchemy-sdk";
 import { alchemy } from "./alchemy";
 
 export async function updateAssets(data: CoinDB[]) {
@@ -62,6 +63,16 @@ export async function getTokenBalances(address: string) {
     list.push(coin);
   }
   return list;
+}
+
+/**
+ * Get the total ETH balance of address
+ *
+ */
+export async function getBalance(address: string) {
+  let balance = await alchemy.core.getBalance(address, "latest");
+  const total = Utils.formatEther(balance);
+  return total;
 }
 
 /**
