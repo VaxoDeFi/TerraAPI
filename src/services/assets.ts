@@ -89,7 +89,9 @@ export async function getApiCoinAssets() {
  *
  */
 export async function getApiMessari() {
-  const assets = await axios.get(`https://api.coincap.io/v2/assets`);
+  const assets = await axios.get(
+    `https://data.messari.io/api/v1/markets/prices-legacy`
+  );
   return assets;
 }
 

@@ -5,6 +5,8 @@ import { getTokenBalances, getAsset, getBalance } from "../services/assets";
 import type { Request, Response } from "express";
 import axios from "axios";
 
+// GET tokens wallet details with icons, symbol, decimals, contract address
+
 server.get("/tokens/:address", async (req: Request, res: Response) => {
   try {
     const address = req.params.address;
@@ -14,6 +16,8 @@ server.get("/tokens/:address", async (req: Request, res: Response) => {
     res.status(500).end("[API:BALANCE] Couldn't get balance tokens" + e);
   }
 });
+
+// GET eth balance with usdt price
 
 server.get("/:address", async (req: Request, res: Response) => {
   try {

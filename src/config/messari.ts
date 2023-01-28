@@ -18,7 +18,7 @@ async function MessariPrices(job: any, done: any) {
     spinner.succeed(`Successfull after ${Date.now() - date}ms`);
     spinner.clear();
     console.log(
-      chalk.yellow.bold(`Crypto Assets on ${new Date().toISOString()}:`)
+      chalk.yellow.bold(`Messari Assets on ${new Date().toISOString()}:`)
     );
     done();
   } catch (error) {

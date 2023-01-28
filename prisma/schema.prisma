@@ -10,7 +10,7 @@ datasource db {
   url      = env("POSTGRESQL_ADDON_URI")
 }
 
-model Coin {
+model CoinAPI {
   id                Int     @default(autoincrement())
   idRank            String
   rank              Int
@@ -25,4 +25,38 @@ model Coin {
   vwap24Hr          String?
   explorer          String?
   icon              String?
+}
+
+model Messari {
+  id                      String
+  symbol                  String  @unique
+  rank                    Int
+  icon                    String?
+  slug                    String
+  name                    String
+  contract_addresses      String?
+  priceUsd                Int?
+  priceBtc                Int?
+  priceEth                Int?
+  percentageChange1HrUsd  Int?
+  percentageChange24HrUsd Int?
+  currentMarketcap        Int?
+  vol24HrUsd              Int?
+  realVol24HrUsd          Int?
+  athUsd                  Int?
+  athTimestamp            Int?
+  percentageDownFromAth   Int?
+  category                String?
+  sector                  String?
+  nextHalvingDate         Int?
+  genesisBlockDate        Int?
+  tokenUsage              String?
+  consensusAlgorithm      String?
+}
+
+model CoinGeckoList {
+  id        String
+  symbol    String @unique
+  name      String
+  platforms String
 }
