@@ -28,7 +28,7 @@ model CoinAPI {
 }
 
 model Messari {
-  id                      String
+  id                      String  @id
   symbol                  String  @unique
   rank                    Int
   icon                    String?
@@ -50,6 +50,7 @@ model Messari {
   sector                  String?
   nextHalvingDate         Int?
   genesisBlockDate        Int?
+  tokenType               String?
   tokenUsage              String?
   consensusAlgorithm      String?
 }

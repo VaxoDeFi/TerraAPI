@@ -1,7 +1,5 @@
 import express from "express";
 var res = express.Router();
-import env from "@env";
-import { createReadStream } from "fs";
 import { access } from "fs/promises";
 import { F_OK } from "constants";
 import type { Request, Response } from "express";

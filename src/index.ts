@@ -7,11 +7,10 @@ import buildServer from "./server";
 import env from "@env";
 import { prisma } from "./db/prisma";
 import MessariPrices from "./config/messari";
-import Redis from "ioredis";
 
 const totalCPUs = cpus().length;
 
-const apiQueue = new Queue("apiQueue", {
+const MessariQueue = new Queue("MessariQueue", {
   redis: {
     port: Number(env.REDIS_PORT),
     host: env.REDIS_HOST,
@@ -43,9 +42,6 @@ if (cluster.isPrimary) {
       "WARNING: The server is running in TESTING mode. (dedicated to dev & debug only!)"
     );
 
-  // promClient.collectDefaultMetrics({
-  //   labels: {NODE_PROCESS_PID: process.pid},
-  // });
   const workersCount = env.TESTING ? 1 : totalCPUs;
   console.log(
     "Number of CPUs is " +
@@ -60,33 +56,24 @@ if (cluster.isPrimary) {
   }
   cluster.on("online", function (worker) {
     console.log("Worker " + worker.process.pid + " is online");
-    apiQueue.add(MessariPrices, { repeat: { every: 60000 } });
+    MessariQueue.add(MessariPrices, { repeat: { every: 60000 } });
   });
   cluster.on("message", async (worker, message) => {
-    // if (message.code == 'metrics_request') {
-    //   //handle metrics requests
-    //   aggregatorRegistry.clusterMetrics().then((aggregatedMetrics) => {
-    //     worker.process.send({
-    //       code: 'metrics_response',
-    //       data: aggregatedMetrics,
-    //     });
-    //   });
-    // }
     if (message.code == "error") {
       console.log("> WORKER " + worker.process.pid + " CRASHED");
     }
   });
   cluster.on("exit", (worker, code, signal) => {
-    // if (code != 0) worker_crash_counter.inc();
+    console.log("> WORKER " + worker.process.pid + " EXIT");
     cluster.fork();
   });
 }
 
 // Start Server
 else {
-  apiQueue.process(async function (job, jobDone) {
-    console.log("Job done by worker", job.id);
-    await MessariPrices(job, jobDone);
-  });
+  // MessariQueue.process(async function (job, jobDone) {
+  //   console.log("Job done by worker", job.id);
+  //   await MessariPrices(job, jobDone);
+  // });
   startServer();
 }

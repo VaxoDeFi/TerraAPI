@@ -1,8 +1,14 @@
 import express from "express";
 var server = express.Router();
-import { getApiCoinAssets, getApiMessari, getAsset } from "../services/assets";
-import vaxoResponses from "../utilities/vaxoResponses";
 import type { Request, Response } from "express";
+import {
+  getApiCoinAssets,
+  getApiMessari,
+  getAsset,
+  insertMessari,
+} from "../services/assets";
+import vaxoResponses from "../utilities/vaxoResponses";
+import { allMessari } from "../db/pg/messari";
 
 server.get("/apicoin/prices", async (req: Request, res: Response) => {
   try {
@@ -13,10 +19,20 @@ server.get("/apicoin/prices", async (req: Request, res: Response) => {
   }
 });
 
-server.get("/messari/prices", async (req: Request, res: Response) => {
+server.get("/messari/update", async (req: Request, res: Response) => {
   try {
     const assets = await getApiMessari();
-    vaxoResponses.json(req, res, assets.data);
+    await insertMessari(assets.data);
+    vaxoResponses.done(res);
+  } catch (e) {
+    res.status(500).end("[API:PRICES] Couldn't fetch prices assets | " + e);
+  }
+});
+
+server.get("/messari/price", async (req: Request, res: Response) => {
+  try {
+    const data = await allMessari();
+    vaxoResponses.json(req, res, data);
   } catch (e) {
     res.status(500).end("[API:PRICES] Couldn't fetch prices assets | " + e);
   }

@@ -2,9 +2,9 @@
 import env from "@env";
 import axios from "axios";
 import { checkFileExists } from "../routes/resources";
-import { createOrUpdate } from "../db/pg/coins";
 import { Utils } from "alchemy-sdk";
 import { alchemy } from "./alchemy";
+import { upsertMessari } from "../db/pg/messari";
 
 export async function updateAssets(data: CoinDB[]) {
   const newData = data.map((v: any) => {
@@ -13,7 +13,52 @@ export async function updateAssets(data: CoinDB[]) {
     delete v.id;
     return v;
   });
-  await createOrUpdate(newData);
+  // await createOrUpdate(newData);
+}
+
+function newMessariAsset(data: Partial<Messari>): Messari {
+  return {
+    id: data.id ? data.id : "",
+    symbol: data.symbol ? data.symbol : "",
+    rank: data.rank ? data.rank : 0,
+    icon: "",
+    slug: data.slug ? data.slug : "",
+    name: data.name ? data.name : "",
+    contract_addresses: data.contract_addresses ? data.contract_addresses : "",
+    priceUsd: data.priceUsd ? data.priceUsd : 0,
+    priceBtc: data.priceBtc ? data.priceBtc : 0,
+    priceEth: data.priceEth ? data.priceEth : 0,
+    percentageChange1HrUsd: data.percentageChange1HrUsd
+      ? data.percentageChange1HrUsd
+      : 0,
+    percentageChange24HrUsd: data.percentageChange24HrUsd
+      ? data.percentageChange24HrUsd
+      : 0,
+    currentMarketcap: data.currentMarketcap ? data.currentMarketcap : 0,
+    vol24HrUsd: data.vol24HrUsd ? data.vol24HrUsd : 0,
+    realVol24HrUsd: data.realVol24HrUsd ? data.realVol24HrUsd : 0,
+    athUsd: data.athUsd ? data.athUsd : 0,
+    athTimestamp: data.athTimestamp ? data.athTimestamp : 0,
+    percentageDownFromAth: data.percentageDownFromAth
+      ? data.percentageDownFromAth
+      : 0,
+    category: data.category ? data.category : "",
+    sector: data.sector ? data.sector : "",
+    nextHalvingDate: data.nextHalvingDate ? data.nextHalvingDate : null,
+    genesisBlockDate: data.genesisBlockDate ? data.genesisBlockDate : 0,
+    tokenType: data.tokenType ? data.tokenType : "",
+    tokenUsage: data.tokenUsage ? data.tokenUsage : "",
+    consensusAlgorithm: data.consensusAlgorithm ? data.consensusAlgorithm : "",
+  };
+}
+
+export async function insertMessari(data: Partial<Messari>[]) {
+  var len = data.length;
+  for (var i = 0; i < len; i++) {
+    var asset = newMessariAsset(data[i]);
+    asset.icon = "/res/assets/" + asset.symbol.toLowerCase() + ".png";
+    await upsertMessari(asset);
+  }
 }
 
 /**
