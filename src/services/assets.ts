@@ -52,11 +52,15 @@ function newMessariAsset(data: Partial<Messari>): Messari {
   };
 }
 
-export async function insertMessari(data: Partial<Messari>[]) {
+export async function insertMessari(data: any) {
   var len = data.length;
   for (var i = 0; i < len; i++) {
     var asset = newMessariAsset(data[i]);
+    asset.contract_addresses = asset.contract_addresses
+      ? JSON.stringify(asset.contract_addresses)
+      : "";
     asset.icon = "/res/assets/" + asset.symbol.toLowerCase() + ".png";
+    console.log(asset);
     await upsertMessari(asset);
   }
 }

@@ -35,21 +35,21 @@ model Messari {
   slug                    String
   name                    String
   contract_addresses      String?
-  priceUsd                Int?
-  priceBtc                Int?
-  priceEth                Int?
-  percentageChange1HrUsd  Int?
-  percentageChange24HrUsd Int?
-  currentMarketcap        Int?
-  vol24HrUsd              Int?
-  realVol24HrUsd          Int?
-  athUsd                  Int?
-  athTimestamp            Int?
-  percentageDownFromAth   Int?
+  priceUsd                Float?
+  priceBtc                Float?
+  priceEth                Float?
+  percentageChange1HrUsd  Float?
+  percentageChange24HrUsd Float?
+  currentMarketcap        Float?
+  vol24HrUsd              Float?
+  realVol24HrUsd          Float?
+  athUsd                  Float?
+  athTimestamp            Float?
+  percentageDownFromAth   Float?
   category                String?
   sector                  String?
-  nextHalvingDate         Int?
-  genesisBlockDate        Int?
+  nextHalvingDate         Float?
+  genesisBlockDate        Float?
   tokenType               String?
   tokenUsage              String?
   consensusAlgorithm      String?

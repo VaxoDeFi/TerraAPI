@@ -10,13 +10,15 @@ import MessariPrices from "./config/messari";
 
 const totalCPUs = cpus().length;
 
-const MessariQueue = new Queue("MessariQueue", {
-  redis: {
-    port: Number(env.REDIS_PORT),
-    host: env.REDIS_HOST,
-    password: env.REDIS_PASSWORD ? env.REDIS_PASSWORD : "",
-  },
-});
+// const MessariQueue = new Queue("MessariQueue", {
+//   redis: {
+//     port: Number(env.REDIS_PORT),
+//     host: env.REDIS_HOST,
+//     password: env.REDIS_PASSWORD ? env.REDIS_PASSWORD : "",
+//   },
+// });
+
+// const MessariQueue = new Queue("MessariQueue");
 
 if (cluster.isPrimary) {
   var title = "💖  Vaxo BACKEND  📒\n";
@@ -30,6 +32,12 @@ async function startServer() {
   await prisma.$connect();
   await buildServer({ server: app });
 
+  process.stdout.on("error", function (err) {
+    if (err.code == "EPIPE") {
+      process.exit(0);
+    }
+  });
+
   app.listen(PORT, async () => {
     console.log(`Your server is ready ! http://0.0.0.0:${PORT}`);
   });
@@ -37,12 +45,12 @@ async function startServer() {
 
 if (cluster.isPrimary) {
   console.log("\nServeur starting on port " + process.env.PORT);
-  if (env.TESTING)
+  if (env.MODE)
     console.log(
       "WARNING: The server is running in TESTING mode. (dedicated to dev & debug only!)"
     );
 
-  const workersCount = env.TESTING ? 1 : totalCPUs;
+  const workersCount = env.MODE ? 1 : totalCPUs;
   console.log(
     "Number of CPUs is " +
       String(totalCPUs) +
@@ -54,12 +62,13 @@ if (cluster.isPrimary) {
   for (let i = 0; i < workersCount; i++) {
     cluster.fork();
   }
-  cluster.on("online", function (worker) {
+  cluster.on("online", async function (worker) {
     console.log("Worker " + worker.process.pid + " is online");
-    MessariQueue.add(MessariPrices, { repeat: { every: 60000 } });
+    // MessariQueue.add(MessariPrices, { repeat: { every: 60000 } });
   });
   cluster.on("message", async (worker, message) => {
     if (message.code == "error") {
+      // MessariQueue.close();
       console.log("> WORKER " + worker.process.pid + " CRASHED");
     }
   });

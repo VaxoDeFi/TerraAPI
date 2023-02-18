@@ -60,7 +60,6 @@ export const upsertMessari = async (data: Messari) => {
     },
     update: {
       rank: data.rank ? data.rank : 0,
-      icon: data.icon,
       contract_addresses: data.contract_addresses
         ? data.contract_addresses
         : "",
@@ -84,8 +83,8 @@ export const upsertMessari = async (data: Messari) => {
     },
     create: {
       id: data.id ? data.id : "",
-      symbol: data.symbol ? data.symbol : "",
-      rank: data.rank ? data.rank : 0,
+      symbol: data.symbol,
+      rank: data.rank,
       icon: data.icon,
       slug: data.slug ? data.slug : "",
       name: data.name ? data.name : "",
@@ -120,6 +119,7 @@ export const upsertMessari = async (data: Messari) => {
         : "",
     },
   });
+  return upsert;
 };
 
 export const updateMessari = async (data: Messari) => {
@@ -169,7 +169,7 @@ export const getMessariByPage = async (rows: number) => {
   const coins = await prisma.messari.findMany({
     take: rows,
     orderBy: {
-      currentMarketcap: "desc",
+      rank: "asc",
     },
   });
   return coins;
