@@ -7,6 +7,12 @@ import env from "@env";
 import { dirname } from "path";
 
 export default async ({ server }: { server: express.Application }) => {
+  // server.use(cors());
+  server.use(
+    cors({
+      origin: true,
+    })
+  );
   server.get("/status", (req, res) => {
     res.status(200).end();
   });
@@ -14,7 +20,7 @@ export default async ({ server }: { server: express.Application }) => {
     res.status(200).end();
   });
   server.enable("trust proxy");
-  server.use(cors());
+  server.use("/resources", express.static("resources"));
   server.use(helmet());
   if (env.MODE === "dev") {
     server.use(morgan("dev"));
@@ -23,8 +29,6 @@ export default async ({ server }: { server: express.Application }) => {
   }
   server.use(express.urlencoded({ extended: true }));
   server.use(express.json());
-
-  server.use("/resources", express.static("resources"));
 
   server.use("/", Router);
 
