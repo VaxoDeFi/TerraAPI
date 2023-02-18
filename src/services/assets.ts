@@ -60,7 +60,6 @@ export async function insertMessari(data: any) {
       ? JSON.stringify(asset.contract_addresses)
       : "";
     asset.icon = "/res/assets/" + asset.symbol.toLowerCase() + ".png";
-    console.log(asset);
     await upsertMessari(asset);
   }
 }

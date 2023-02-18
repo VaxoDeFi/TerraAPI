@@ -29,10 +29,10 @@ model CoinAPI {
 
 model Messari {
   id                      String  @id
-  symbol                  String  @unique
+  symbol                  String
   rank                    Int
   icon                    String?
-  slug                    String
+  slug                    String  @unique
   name                    String
   contract_addresses      String?
   priceUsd                Float?

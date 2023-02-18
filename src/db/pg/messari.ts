@@ -47,7 +47,7 @@ export const createMessari = async (data: Messari) => {
 export const deleteMessari = async (id: string) => {
   const res = await prisma.messari.delete({
     where: {
-      symbol: id,
+      slug: id,
     },
   });
   return res;
@@ -56,7 +56,7 @@ export const deleteMessari = async (id: string) => {
 export const upsertMessari = async (data: Messari) => {
   const upsert = await prisma.messari.upsert({
     where: {
-      symbol: data.symbol,
+      slug: data.slug,
     },
     update: {
       rank: data.rank ? data.rank : 0,
@@ -125,7 +125,7 @@ export const upsertMessari = async (data: Messari) => {
 export const updateMessari = async (data: Messari) => {
   const update = await prisma.messari.update({
     where: {
-      symbol: data.symbol,
+      slug: data.slug,
     },
     data: {
       rank: data.rank ? data.rank : 0,
@@ -175,10 +175,10 @@ export const getMessariByPage = async (rows: number) => {
   return coins;
 };
 
-export const findOneMessari = async (symbol: string) => {
+export const findOneMessari = async (slug: string) => {
   const coin = await prisma.messari.findUnique({
     where: {
-      symbol,
+      slug,
     },
   });
   return coin;
